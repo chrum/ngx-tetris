@@ -1,13 +1,16 @@
-import {Piece, PieceTypes} from './Piece';
+import {Piece, PieceRotation, PieceTypes} from './Piece';
+
+const MAPS = [];
+MAPS[PieceRotation.DEG_0] = [
+    [undefined,        undefined,         undefined,    undefined],
+    [undefined,        undefined,         undefined,    undefined],
+    [PieceTypes.Box,   PieceTypes.Box,    undefined,    undefined],
+    [PieceTypes.Box,   PieceTypes.Box,    undefined,    undefined],
+];
+
 
 export class Box extends Piece {
-    color: string = 'red';
-    constructor(x, y) {
-        super(x, y);
-
-        this.map[2][0] = PieceTypes.Box;
-        this.map[2][1] = PieceTypes.Box;
-        this.map[3][0] = PieceTypes.Box;
-        this.map[3][1] = PieceTypes.Box;
+    constructor(x, y, gridSize) {
+        super(x, y, gridSize, MAPS);
     }
 }

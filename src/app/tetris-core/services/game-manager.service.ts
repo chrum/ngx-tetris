@@ -2,27 +2,33 @@ import {Injectable} from '@angular/core';
 import {Piece} from '../classes/Piece';
 import {PiecesFactory} from '../classes/PiecesFactory';
 
-const GAME_SPEED = 500;
+const GAME_SPEED = 1000;
+const SPAWN_POSITION_X = 3;
+const SPAWN_POSITION_Y = -4;
 
 @Injectable()
 export class GameManagerService {
+    // serialized grid :)
     public grid: Array<any>;
 
-    private _width: number;
-    private _height: number;
+    private _gridSize: {
+        width: number,
+        height: number
+    } = { width: 0, height: 0 };
 
     private _piece: Piece;
-    private _piecesFactory: PiecesFactory = new PiecesFactory();
+    private _piecesFactory: PiecesFactory;
 
     constructor() {
     }
 
     public initialize(width: number, height: number) {
-        this._width = width;
-        this._height = height;
+        this._gridSize.width = width;
+        this._gridSize.height = height;
 
         this._initializeEmptyBoard();
 
+        this._piecesFactory = new PiecesFactory(this._gridSize);
 
         this._spawnNewPiece();
         this._drawPiece();
@@ -32,9 +38,31 @@ export class GameManagerService {
         }, GAME_SPEED);
     }
 
+    public moveLeft() {
+        if (this._canMoveLeft()) {
+            this._clearPiece();
+            this._piece.moveLeft();
+            this._drawPiece();
+        }
+    }
+
+    public moveRight() {
+        if (this._canMoveRight()) {
+            this._clearPiece();
+            this._piece.moveRight();
+            this._drawPiece()
+        }
+    }
+
+    public rotate() {
+        this._clearPiece();
+        this._piece.rotate();
+        this._drawPiece()
+    }
+
     private _update() {
         if (this._canMoveDown()) {
-            this._drawPiece(true);
+            this._clearPiece();
             this._piece.moveDown();
 
         } else {
@@ -46,11 +74,12 @@ export class GameManagerService {
     }
 
     private _spawnNewPiece() {
-        this._piece = this._piecesFactory.drawPiece(3, -4);
+        this._piece = this._piecesFactory.drawPiece(SPAWN_POSITION_X, SPAWN_POSITION_Y);
     }
 
     private _initializeEmptyBoard() {
-        this.grid = Array.apply(null, Array(this._height * this._width))
+        let cellsCount = this._gridSize.width * this._gridSize.height;
+        this.grid = Array.apply(null, Array(cellsCount))
             .map((idx) => {
                 return {
                     color: null,
@@ -58,47 +87,54 @@ export class GameManagerService {
                 }
             });
     }
-    
-    private _drawPiece(clear: boolean = false) {
-        this._onPieceCell((pos) => {
-            if (clear) {
-                this.grid[pos].color = undefined;
 
-            } else {
+    private _clearPiece() {
+        this._piece.getPositionsOnGrid()
+            .forEach((pos) => {
+                this.grid[pos].color = undefined;
+            });
+    }
+    
+    private _drawPiece() {
+        this._piece.getPositionsOnGrid()
+            .forEach((pos) => {
                 this.grid[pos].color = this._piece.color;
-            }
-        })
+            });
     }
 
     private _markSolid(){
-        this._onPieceCell((pos) => {
+        this._piece.getPositionsOnGrid().forEach((pos) => {
             this.grid[pos].solid = true;
         })
     }
 
-    /**
-     * Executes function on grid cell that is occupied by piece
-     * @param fnc
-     * @private
-     */
-    private _onPieceCell(fnc) {
-        for(let row = 0; row < 4; row++) {
-            for(let col = 0; col < 4; col++) {
-                if (this._piece.map[row][col]) {
-                    let pos = (this._piece.y + row) * this._width + this._piece.x + col;
-                    if (pos > 0) {
-                        fnc(pos);
-                    }
-                }
-            }
-        }
-    }
-
     private _canMoveDown() {
-        if (this._piece.bottomRow + 1 >= this._height) {
+        if (this._piece.bottomRow + 1 >= this._gridSize.height) {
             return false;
 
-        } else if (this._collidesBottom()) {
+        } else if (this._willCollideBottom()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private _canMoveLeft() {
+        if (this._piece.leftCol - 1 < 0) {
+            return false;
+
+        } else if (this._willCollideLeft()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private _canMoveRight() {
+        if (this._piece.rightCol + 1 >= this._gridSize.width) {
+            return false;
+
+        } else if (this._willCollideLeft()) {
             return false;
         }
 
@@ -110,27 +146,37 @@ export class GameManagerService {
      * @returns {boolean}
      * @private
      */
-    private _collidesBottom() {
-        for(let row = 3; row > 1; row--) {
-            for(let col = 0; col < 4; col++) {
-                if (this._piece.map[row][col]) {
-                    let pos = (this._piece.y + row + 1) * this._width + this._piece.x + col;
-                    if (pos > 0 && this.grid[pos] && this.grid[pos].solid) {
-                         return true;
-                    }
+    private _willCollideBottom() {
+        return this._piece.getPositionsOnGrid('bottom', 0, 1)
+            .some((pos) => {
+                if (pos > 0 && this.grid[pos] && this.grid[pos].solid) {
+                    return true;
                 }
-            }
-        }
 
-        return false;
+                return false;
+            });
     }
 
-    private _canMoveLeft() {
+    private _willCollideLeft() {
+        return this._piece.getPositionsOnGrid('left', -1)
+            .some((pos) => {
+                if (pos > 0 && this.grid[pos] && this.grid[pos].solid) {
+                    return true;
+                }
 
+                return false;
+            });
     }
 
-    private _canMoveRight() {
+    private _willCollideRight() {
+        return this._piece.getPositionsOnGrid('right', 1)
+            .some((pos) => {
+                if (pos > 0 && this.grid[pos] && this.grid[pos].solid) {
+                    return true;
+                }
 
+                return false;
+            });
     }
 
 }

@@ -17,4 +17,16 @@ export class TetrisCoreComponent implements OnInit {
     ngOnInit() {
     }
 
+    moveLeft() {
+        this._manager.moveLeft();
+    }
+
+    moveRight() {
+        this._manager.moveRight();
+    }
+
+    rotate() {
+        this._manager.rotate();
+    }
+
 }

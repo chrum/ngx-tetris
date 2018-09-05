@@ -1,9 +1,15 @@
-import {Piece, PieceTypes} from './Piece';
+import {Piece, PieceRotation, PieceTypes} from './Piece';
+
+const MAPS = [];
+MAPS[PieceRotation.DEG_0] = [
+    [undefined,        undefined,    undefined,    undefined],
+    [undefined,        undefined,    undefined,    undefined],
+    [undefined,        undefined,    undefined,    undefined],
+    [PieceTypes.Dot,   undefined,    undefined,    undefined],
+];
 
 export class Dot extends Piece {
-    color: string = 'black';
-    constructor(x, y) {
-        super(x, y);
-        this.map[3][0] = PieceTypes.Dot;
+    constructor(x, y, gridSize) {
+        super(x, y, gridSize, MAPS);
     }
 }

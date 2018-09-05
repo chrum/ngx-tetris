@@ -1,13 +1,23 @@
-import {Piece, PieceTypes} from './Piece';
+import {Direction, Piece, PieceRotation, PieceTypes} from './Piece';
+
+const MAPS = [];
+MAPS[PieceRotation.DEG_0] = [
+    [undefined,         undefined,         undefined,        undefined],
+    [undefined,         undefined,         undefined,        undefined],
+    [undefined,         undefined,         undefined,        undefined],
+    [PieceTypes.Line,   PieceTypes.Line,   PieceTypes.Line,  PieceTypes.Line],
+];
+
+MAPS[PieceRotation.DEG_90] = [
+    [PieceTypes.Line,   undefined,   undefined,  undefined],
+    [PieceTypes.Line,   undefined,   undefined,  undefined],
+    [PieceTypes.Line,   undefined,   undefined,  undefined],
+    [PieceTypes.Line,   undefined,   undefined,  undefined],
+];
+
 
 export class Line extends Piece {
-    color: string = 'blue';
-    constructor(x, y) {
-        super(x, y);
-
-        this.map[3][0] = PieceTypes.Line;
-        this.map[3][1] = PieceTypes.Line;
-        this.map[3][2] = PieceTypes.Line;
-        this.map[3][3] = PieceTypes.Line;
+    constructor(x, y, gridSize) {
+        super(x, y, gridSize, MAPS);
     }
 }
