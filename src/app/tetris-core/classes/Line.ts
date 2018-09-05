@@ -1,4 +1,4 @@
-import {Direction, Piece, PieceRotation, PieceTypes} from './Piece';
+import {Piece, PieceRotation, PieceTypes} from './Piece';
 
 const MAPS = [];
 MAPS[PieceRotation.DEG_0] = [

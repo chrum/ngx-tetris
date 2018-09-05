@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Piece} from '../classes/Piece';
 import {PiecesFactory} from '../classes/PiecesFactory';
 
-const GAME_SPEED = 1000;
 const SPAWN_POSITION_X = 3;
 const SPAWN_POSITION_Y = -4;
 
@@ -19,10 +18,12 @@ export class GameManagerService {
     private _piece: Piece;
     private _piecesFactory: PiecesFactory;
 
+    private _locked: boolean = false;
+
     constructor() {
     }
 
-    public initialize(width: number, height: number) {
+    public initialize(width: number, height: number, gameSpeed) {
         this._gridSize.width = width;
         this._gridSize.height = height;
 
@@ -35,42 +36,82 @@ export class GameManagerService {
 
         setInterval(() => {
             this._update();
-        }, GAME_SPEED);
+        }, gameSpeed);
     }
 
     public moveLeft() {
-        if (this._canMoveLeft()) {
-            this._clearPiece();
-            this._piece.moveLeft();
-            this._drawPiece();
+        if (this._locked) {
+            return;
         }
+        this._clearPiece();
+        this._piece.store();
+
+        this._piece.moveLeft();
+        if (this._collidesLeft()) {
+            this._piece.revert();
+        }
+
+        this._drawPiece();
     }
 
     public moveRight() {
-        if (this._canMoveRight()) {
-            this._clearPiece();
-            this._piece.moveRight();
-            this._drawPiece()
+        if (this._locked) {
+            return;
         }
-    }
-
-    public rotate() {
         this._clearPiece();
-        this._piece.rotate();
+        this._piece.store();
+
+        this._piece.moveRight();
+        if (this._collidesRight()) {
+            this._piece.revert();
+        }
+
         this._drawPiece()
     }
 
-    private _update() {
-        if (this._canMoveDown()) {
-            this._clearPiece();
-            this._piece.moveDown();
+    public rotate() {
+        if (this._locked) {
+            return;
+        }
 
-        } else {
+        this._clearPiece();
+        this._piece.store();
+
+        this._piece.rotate();
+        while(this._collidesRight()) {
+            this._piece.moveLeft();
+
+            if (this._collidesLeft()) {
+                this._piece.revert();
+                break;
+            }
+        }
+
+        this._drawPiece()
+    }
+
+    public moveDown() {
+
+    }
+
+    private _update() {
+        this._locked = true;
+        this._piece.revert();
+
+        this._clearPiece();
+        this._piece.store();
+
+        this._piece.moveDown();
+        if (this._collidesBottom()) {
+            this._piece.revert();
             this._markSolid();
+            this._drawPiece();
+
             this._spawnNewPiece()
         }
 
         this._drawPiece();
+        this._locked = false;
     }
 
     private _spawnNewPiece() {
@@ -89,65 +130,51 @@ export class GameManagerService {
     }
 
     private _clearPiece() {
-        this._piece.getPositionsOnGrid()
+        this._piece.positionsOnGrid
             .forEach((pos) => {
                 this.grid[pos].color = undefined;
             });
     }
     
     private _drawPiece() {
-        this._piece.getPositionsOnGrid()
+        this._piece.clearStore();
+        this._piece.positionsOnGrid
             .forEach((pos) => {
                 this.grid[pos].color = this._piece.color;
             });
     }
 
     private _markSolid(){
-        this._piece.getPositionsOnGrid().forEach((pos) => {
+        this._piece.positionsOnGrid.forEach((pos) => {
             this.grid[pos].solid = true;
         })
     }
 
-    private _canMoveDown() {
-        if (this._piece.bottomRow + 1 >= this._gridSize.height) {
-            return false;
-
-        } else if (this._willCollideBottom()) {
-            return false;
+    private _collidesBottom() {
+        if (this._piece.bottomRow >= this._gridSize.height) {
+            return true;
         }
-
-        return true;
+        return this.__collides();
     }
 
-    private _canMoveLeft() {
-        if (this._piece.leftCol - 1 < 0) {
-            return false;
-
-        } else if (this._willCollideLeft()) {
-            return false;
+    private _collidesLeft() {
+        if (this._piece.leftCol < 0) {
+            return true;
         }
 
-        return true;
+        return this.__collides();
     }
 
-    private _canMoveRight() {
-        if (this._piece.rightCol + 1 >= this._gridSize.width) {
-            return false;
-
-        } else if (this._willCollideLeft()) {
-            return false;
+    private _collidesRight() {
+        if (this._piece.rightCol >= this._gridSize.width) {
+            return true;
         }
 
-        return true;
+        return this.__collides();
     }
 
-    /**
-     * Checks if when moved down by one row would collide
-     * @returns {boolean}
-     * @private
-     */
-    private _willCollideBottom() {
-        return this._piece.getPositionsOnGrid('bottom', 0, 1)
+    private __collides() {
+        return this._piece.positionsOnGrid
             .some((pos) => {
                 if (pos > 0 && this.grid[pos] && this.grid[pos].solid) {
                     return true;
@@ -156,27 +183,4 @@ export class GameManagerService {
                 return false;
             });
     }
-
-    private _willCollideLeft() {
-        return this._piece.getPositionsOnGrid('left', -1)
-            .some((pos) => {
-                if (pos > 0 && this.grid[pos] && this.grid[pos].solid) {
-                    return true;
-                }
-
-                return false;
-            });
-    }
-
-    private _willCollideRight() {
-        return this._piece.getPositionsOnGrid('right', 1)
-            .some((pos) => {
-                if (pos > 0 && this.grid[pos] && this.grid[pos].solid) {
-                    return true;
-                }
-
-                return false;
-            });
-    }
-
 }

@@ -33,6 +33,7 @@ export class Piece {
     ];
 
     private _gridSize;
+    private _lastConfig: any = null;
 
     constructor(x, y, gridSize, maps) {
         this.color = PieceColors[this.constructor.name];
@@ -44,30 +45,15 @@ export class Piece {
         this.map = this._maps[this.rotation];
     }
 
-    public getPositionsOnGrid(from = 'top', xOffset = 0, yOffset = 0) {
+    get positionsOnGrid() {
         let acc = [];
-        if (from === 'top') {
-            for(let row = 0; row < 4; row++) {
-                for(let col = 0; col < 4; col++) {
-                    let pos = this._calculatePosition(row, col, this._gridSize.width, xOffset, yOffset, acc);
-                }
-            }
-        } else if (from === 'bottom') {
-            for(let row = 3; row >= 0; row--) {
-                for(let col = 0; col < 4; col++) {
-                    let pos = this._calculatePosition(row, col, this._gridSize.width, xOffset, yOffset, acc);
-                }
-            }
-        } else if (from === 'left') {
+        for(let row = 0; row < 4; row++) {
             for(let col = 0; col < 4; col++) {
-                for(let row = 3; row >= 0; row--) {
-                    let pos = this._calculatePosition(row, col, this._gridSize.width, xOffset, yOffset, acc);
-                }
-            }
-        } else if (from === 'right') {
-            for(let col = 3; col >= 0; col--) {
-                for(let row = 3; row >= 0; row--) {
-                    let pos = this._calculatePosition(row, col, this._gridSize.width, xOffset, yOffset, acc);
+                if (this.map[row][col]) {
+                    let pos = (this.y + row) * this._gridSize.width + this.x + col;
+                    if (pos > 0) {
+                        acc.push(pos);
+                    }
                 }
             }
         }
@@ -75,12 +61,28 @@ export class Piece {
         return acc;
     }
 
-    private _calculatePosition(row, col, gridWidth, xOffset, yOffset, acc) {
-        if (this.map[row][col]) {
-            let pos = (this.y + row + yOffset) * gridWidth + this.x + col + xOffset;
-            if (pos > 0) {
-                acc.push(pos);
+    public store() {
+        this._lastConfig = {
+            x: this.x,
+            y: this.y,
+            rotation: this.rotation,
+            map: this.map
+        }
+    }
+
+    public clearStore() {
+        this._lastConfig = null;
+    }
+
+    public revert() {
+        if (this._lastConfig) {
+            for(let x in this._lastConfig) {
+                if (this._lastConfig.hasOwnProperty(x)) {
+                    this[x] = this._lastConfig[x];
+                }
             }
+
+            this._lastConfig = null;
         }
     }
 
