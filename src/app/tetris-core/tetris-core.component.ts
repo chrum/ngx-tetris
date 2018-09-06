@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GameManagerService} from "./services/game-manager.service";
 
-const GAME_SPEED = 1000;
+const GAME_SPEED = 200;
 
 @Component({
     selector: 'tetris-core',
@@ -27,6 +27,7 @@ export class TetrisCoreComponent implements OnInit {
     ngOnChanges(changes) {
         if (this._keyPressed(changes.moveLeft)) {
             this._manager.moveLeft();
+
         } else if (this._keyPressed(changes.moveRight)) {
             this._manager.moveRight();
         }

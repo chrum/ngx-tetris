@@ -4,12 +4,16 @@ export enum PieceRotation {
     DEG_180 = 2,
     DEG_270 = 3
 }
-
+// picked from https://www.romanzolotarev.com/pico-8-color-palette/
 export enum PieceColors {
-    Box = 'red',
-    Dot = 'black',
-    Line = 'blue',
-    T = 'pink'
+    Box = '#FFCCAA',
+    Dot = '#FF77A8',
+    Line = '#83769C',
+    T = '#29ADFF',
+    L = '#00E436',
+    Lr = '#FFEC27',
+    Z = '#FFA300',
+    S = '#C2C3C7'
 }
 
 export enum PieceTypes {
@@ -18,7 +22,9 @@ export enum PieceTypes {
     Line = 3,
     T = 4,
     L = 5,
-    Z = 6
+    Lr = 6,
+    Z = 7,
+    S = 8
 }
 
 export class Piece {
