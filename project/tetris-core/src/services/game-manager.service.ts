@@ -5,7 +5,7 @@ import {PiecesFactory} from '../classes/PiecesFactory';
 const SPAWN_POSITION_X = 3;
 const SPAWN_POSITION_Y = -4;
 
-interface Tile {
+export interface Tile {
     solid: boolean,
     color: string
 }

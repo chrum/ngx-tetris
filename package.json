@@ -1,13 +1,14 @@
 {
-  "name": "ngx-tetris-core",
-  "version": "0.0.0",
+  "name": "ngx-tetris-dev",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "package": "ng-packagr -p project/tetris-core/package.json"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "core-js": "^2.5.4",
+    "ngx-tetris": "0.0.1",
     "rxjs": "^6.0.0",
     "zone.js": "~0.8.26"
   },
@@ -40,6 +42,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "ng-packagr": "^4.1.1",
     "protractor": "~5.4.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",

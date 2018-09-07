@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/project/tetris-core/dist
 
 # dependencies
 /node_modules
