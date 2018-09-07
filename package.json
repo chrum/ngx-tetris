@@ -1,5 +1,5 @@
 {
-  "name": "ngx-tetris",
+  "name": "ngx-tetris-core",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

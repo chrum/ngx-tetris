@@ -10,4 +10,5 @@ export class AppComponent {
     public moveRight: boolean = false;
     public rotate: boolean = false;
 
+
 }

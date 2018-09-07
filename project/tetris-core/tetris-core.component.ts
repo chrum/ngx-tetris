@@ -6,7 +6,7 @@ const GAME_SPEED = 300;
 @Component({
     selector: 'tetris-core',
     templateUrl: './tetris-core.component.html',
-    styleUrls: ['./tetris-core.component.css']
+    // styleUrls: ['./tetris-core.component.css']
 })
 export class TetrisCoreComponent implements OnInit {
     @Input() rotate = false;

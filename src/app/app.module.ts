@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {TetrisCoreModule} from './tetris-core/tetris-core.module';
+import {TetrisCoreModule} from '../../project/tetris-core/tetris-core.module';
 
 @NgModule({
     declarations: [
