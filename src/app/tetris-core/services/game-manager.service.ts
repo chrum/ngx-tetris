@@ -5,10 +5,15 @@ import {PiecesFactory} from '../classes/PiecesFactory';
 const SPAWN_POSITION_X = 3;
 const SPAWN_POSITION_Y = -4;
 
+interface Tile {
+    solid: boolean,
+    color: string
+}
+
 @Injectable()
 export class GameManagerService {
     // serialized grid :)
-    public grid: Array<any>;
+    public grid: Array<Tile>;
 
     private _gridSize: {
         width: number,
@@ -66,7 +71,30 @@ export class GameManagerService {
             this._piece.revert();
         }
 
-        this._drawPiece()
+        this._drawPiece();
+    }
+
+    _clearFullLines() {
+        for(let row = this._gridSize.height - 1; row >= 0; row--) {
+            let isFull = true;
+            for(let col = 0; col < this._gridSize.width; col++) {
+                let pos = row * this._gridSize.width + col;
+                if (this.grid[pos].solid === false) {
+                    isFull = false;
+                    break;
+                }
+            }
+
+            if (isFull) {
+                let emptyRow = Array.apply(null, Array(this._gridSize.width))
+                    .map((idx) => { return { color: null, solid: false } });
+
+                let topPortion = this.grid.slice(0, row * this._gridSize.width);
+                let bottomPortion = this.grid.slice((row + 1) * this._gridSize.width);
+
+                this.grid = emptyRow.concat(topPortion, bottomPortion);
+            }
+        }
     }
 
     public rotate() {
@@ -107,6 +135,8 @@ export class GameManagerService {
             this._markSolid();
             this._drawPiece();
 
+            this._clearFullLines();
+
             this._spawnNewPiece()
         }
 
@@ -121,12 +151,7 @@ export class GameManagerService {
     private _initializeEmptyBoard() {
         let cellsCount = this._gridSize.width * this._gridSize.height;
         this.grid = Array.apply(null, Array(cellsCount))
-            .map((idx) => {
-                return {
-                    color: null,
-                    solid: false
-                }
-            });
+            .map((idx) => { return { color: null, solid: false } });
     }
 
     private _clearPiece() {

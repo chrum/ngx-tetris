@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GameManagerService} from "./services/game-manager.service";
 
-const GAME_SPEED = 200;
+const GAME_SPEED = 300;
 
 @Component({
     selector: 'tetris-core',
