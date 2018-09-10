@@ -4,6 +4,8 @@ import {TetrisCoreComponent} from './tetris-core.component';
 import {BoardComponent} from './board/board.component';
 import {GameManagerService} from './services/game-manager.service';
 
+export * from './tetris-core.component';
+
 @NgModule({
     imports: [
         CommonModule
