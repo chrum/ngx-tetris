@@ -24,9 +24,9 @@ export class PiecesFactory {
         this._available.push(Lr);
     }
 
-    public drawPiece(x, y) {
+    public getRandomPiecePiece(x, y) {
         let idx = Math.floor(Math.random() * (this._available.length));
-        console.log(idx);
+
         return new this._available[idx](x, y, this._gridSize);
         // return new this._available[2](x, y, this._gridSize);
     }

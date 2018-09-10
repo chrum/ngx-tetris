@@ -3,9 +3,36 @@
     [moveLeft]="moveLeft"
     [moveRight]="moveRight"
     [moveDown]="moveDown"
-    [rotate]="rotate"></tetris-core>
+    [rotate]="rotate"
+    [start]="start"
+    [stop]="stop"
+    [reset]="reset"
+    (lineCleared)="onLineCleared()"
+    (gameOver)="onGameOver()"></tetris-core>
 
-<button (mousedown)="moveLeft = true" (mouseup)="moveLeft = false">Left</button>
-<button (mousedown)="moveDown = true" (mouseup)="moveDown = false">Down</button>
-<button (mousedown)="moveRight = true" (mouseup)="moveRight = false">Right</button>
-<button (mousedown)="rotate = true" (mouseup)="rotate = false">Rotate</button>
+<table>
+    <tr>
+        <td><button (mousedown)="start = true" (mouseup)="start = false">Start</button></td>
+        <td><button (mousedown)="stop = true" (mouseup)="stop = false">Stop</button></td>
+        <td><button (mousedown)="reset = true" (mouseup)="reset = false">Reset</button></td>
+        <td></td>
+    </tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr>
+        <td></td>
+        <td><button (mousedown)="rotate = true" (mouseup)="rotate = false">Rotate</button></td>
+    </tr>
+    <tr>
+        <td><button (mousedown)="moveLeft = true" (mouseup)="moveLeft = false">Left</button></td>
+        <td></td>
+        <td><button (mousedown)="moveRight = true" (mouseup)="moveRight = false">Right</button></td>
+
+    </tr>
+    <tr>
+        <td></td>
+        <td><button (mousedown)="moveDown = true" (mouseup)="moveDown = false">Down</button></td>
+    </tr>
+</table>
+
