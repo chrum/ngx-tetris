@@ -2,8 +2,10 @@
 <tetris-core
     [moveLeft]="moveLeft"
     [moveRight]="moveRight"
+    [moveDown]="moveDown"
     [rotate]="rotate"></tetris-core>
 
 <button (mousedown)="moveLeft = true" (mouseup)="moveLeft = false">Left</button>
+<button (mousedown)="moveDown = true" (mouseup)="moveDown = false">Down</button>
 <button (mousedown)="moveRight = true" (mouseup)="moveRight = false">Right</button>
 <button (mousedown)="rotate = true" (mouseup)="rotate = false">Rotate</button>

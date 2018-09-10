@@ -7,6 +7,7 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
     public moveLeft: boolean = false;
+    public moveDown: boolean = false;
     public moveRight: boolean = false;
     public rotate: boolean = false;
 

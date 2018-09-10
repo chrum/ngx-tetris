@@ -119,7 +119,7 @@ export class GameManagerService {
     }
 
     public moveDown() {
-
+        this._update();
     }
 
     private _update() {

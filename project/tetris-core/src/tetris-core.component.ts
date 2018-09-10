@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GameManagerService} from "./services/game-manager.service";
 
-const GAME_SPEED = 400;
+const GAME_SPEED = 500;
+const MOVE_DOWN_SPEED = 0.2; // fraction of initial game speed
 
 @Component({
     selector: 'tetris-core',
@@ -11,15 +12,27 @@ const GAME_SPEED = 400;
 export class TetrisCoreComponent implements OnInit {
     @Input() initialSpeed: number;
     @Input() rotate = false;
-    @Input() moveLeft = false;npm
+    @Input() moveLeft = false;
     @Input() moveRight = false;
     @Input() moveDown = false;
 
     gridWidth: number = 10;
     gridHeight: number = 20;
 
+    private _moveDownSpeed;
+
     constructor(private _manager: GameManagerService) {
-        this._manager.initialize(this.gridWidth, this.gridHeight, this.initialSpeed | GAME_SPEED);
+        this.initialSpeed = this.initialSpeed | GAME_SPEED;
+        this._moveDownSpeed = this.initialSpeed * MOVE_DOWN_SPEED;
+
+        this._manager.initialize(this.gridWidth, this.gridHeight, this.initialSpeed);
+
+        setInterval(() => {
+            if (this.moveDown) {
+                this._manager.moveDown();
+            }
+
+        }, this._moveDownSpeed);
     }
 
     ngOnInit() {
