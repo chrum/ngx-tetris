@@ -1,0 +1,15 @@
+:host {
+    display: inline-block;
+    width: auto;
+    text-align: center;
+
+
+}
+
+.controls {
+    float: right;
+}
+
+tetris-core {
+    display: inline-block;
+}
