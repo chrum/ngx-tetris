@@ -6,7 +6,7 @@ Tetris game as an angular component
 
 ***ngx-tetris*** is actually only the ***core of the game***... YOU need to add everything around it (controls, score...)  yourself :) 
 
-Check the [here](http://chrum.it/pages/ngx-tetris)
+Check the demo [here](http://chrum.it/pages/ngx-tetris)
 
 ## Using it:
 #### Install:
@@ -48,11 +48,6 @@ export class AppModule {
 <button (mousedown)="moveRight = true" (mouseup)="moveRight = false">Right</button>
 <button (mousedown)="rotate = true" (mouseup)="rotate = false">Rotate</button>
 ```
-
-## Development
-
- 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Authors
 
