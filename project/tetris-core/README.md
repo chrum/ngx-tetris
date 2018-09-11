@@ -1,9 +1,12 @@
-# ngx-tetris
+# ngx-tetris 
 ***[work-in-progress]***
 
-Tetris game as an angular component
+
+Tetris game as an angular component 
 
 ***ngx-tetris*** is actually only the ***core of the game***... YOU need to add everything around it (controls, score...)  yourself :) 
+
+Check the [here](http://chrum.it/pages/ngx-tetris)
 
 ## Using it:
 #### Install:
