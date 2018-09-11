@@ -1,7 +1,3 @@
-<div class="grid">
-    <div class="cell"
-         *ngFor="let cell of manager.grid"
-        [style.backgroundColor]="cell.color">
-
-    </div>
-</div>
+<tile *ngFor="let tileData of grid"
+    [data]="tileData">
+</tile>

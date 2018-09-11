@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {Hotkey, HotkeysService} from 'angular2-hotkeys';
-// import {TetrisCoreComponent} from '../../project/tetris-core/src/tetris-core.component';
-import {TetrisCoreComponent} from '../../project/tetris-core/dist';
+import {TetrisCoreComponent} from '../../project/tetris-core/src/tetris-core.component';
+// import {TetrisCoreComponent} from '../../project/tetris-core/dist';
 // import {TetrisCoreComponent} from 'ngx-tetris';
 
 @Component({

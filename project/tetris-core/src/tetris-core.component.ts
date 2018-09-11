@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {GameManagerService} from "./services/game-manager.service";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {GameManagerService, Tile} from './services/game-manager.service';
 
 const GAME_SPEED = 500;
 const MOVE_DOWN_SPEED = 0.2; // fraction of initial game speed
@@ -28,6 +28,7 @@ export class TetrisCoreComponent implements OnInit {
     @Output() lineCleared: EventEmitter<any> = new EventEmitter();
     @Output() gameOver: EventEmitter<any> = new EventEmitter();
 
+    public grid: Array<Tile>;
     public state: GameState = GameState.Paused;
 
     gridWidth: number = 10;
@@ -40,6 +41,11 @@ export class TetrisCoreComponent implements OnInit {
         this._moveDownSpeed = this.initialSpeed * MOVE_DOWN_SPEED;
 
         this._manager.initialize(this.gridWidth, this.gridHeight, this.initialSpeed);
+        // this._manager.gridChanged$
+        //     .subscribe(((grid) => {
+        //         this.grid = grid;
+        //     }));
+        this.grid = this._manager.grid;
 
         this._manager.lineCleared$.subscribe((data) => this._onLineCleared(data));
         this._manager.gameOver$.subscribe((data) => this._onGameOver(data));

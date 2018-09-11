@@ -1,14 +1,11 @@
-import { Component } from '@angular/core';
-import {GameManagerService} from "../services/game-manager.service";
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {Tile} from "../services/game-manager.service";
 
 @Component({
-  selector: 'board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css']
+    selector: 'board',
+    templateUrl: './board.component.html',
+    styleUrls: ['./board.component.css'],
 })
 export class BoardComponent {
-
-    constructor(public manager: GameManagerService) {
-    }
-
+    @Input() grid: Array<Tile>;
 }

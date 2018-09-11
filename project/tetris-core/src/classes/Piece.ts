@@ -4,17 +4,7 @@ export enum PieceRotation {
     DEG_180 = 2,
     DEG_270 = 3
 }
-// picked from https://www.romanzolotarev.com/pico-8-color-palette/
-export enum PieceColors {
-    Box = '#FFCCAA',
-    Dot = '#FF77A8',
-    Line = '#83769C',
-    T = '#29ADFF',
-    L = '#00E436',
-    Lr = '#FFEC27',
-    Z = '#FFA300',
-    S = '#C2C3C7'
-}
+
 
 export enum PieceTypes {
     Dot = 1,
@@ -25,6 +15,18 @@ export enum PieceTypes {
     Lr = 6,
     Z = 7,
     S = 8
+}
+
+// picked from https://www.romanzolotarev.com/pico-8-color-palette/
+export enum PieceColors {
+    Box = '#FFCCAA',
+    Dot = '#FF77A8',
+    Line = '#83769C',
+    T = '#29ADFF',
+    L = '#00E436',
+    Lr = '#FFEC27',
+    Z = '#FFA300',
+    S = '#C2C3C7'
 }
 
 export class Piece {
@@ -42,7 +44,6 @@ export class Piece {
     private _lastConfig: any = null;
 
     constructor(x, y, gridSize, maps) {
-        this.color = PieceColors[this.constructor.name];
         this._gridSize = gridSize;
         this.x = x;
         this.y = y;

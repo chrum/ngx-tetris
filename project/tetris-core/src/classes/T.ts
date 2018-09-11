@@ -1,4 +1,4 @@
-import {Piece, PieceRotation, PieceTypes} from './Piece';
+import {Piece, PieceColors, PieceRotation, PieceTypes} from './Piece';
 
 
 const MAPS = {};
@@ -34,5 +34,6 @@ MAPS[PieceRotation.DEG_270] = [
 export class T extends Piece {
     constructor(x, y, gridSize) {
         super(x, y, gridSize, MAPS);
+        this.color = PieceColors['T'];
     }
 }

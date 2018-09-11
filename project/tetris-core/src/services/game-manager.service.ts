@@ -143,9 +143,8 @@ export class GameManagerService {
                     .map((idx) => { return { color: null, solid: false } });
 
                 let topPortion = this.grid.slice(0, row * this._gridSize.width);
-                let bottomPortion = this.grid.slice((row + 1) * this._gridSize.width);
 
-                this.grid = emptyRow.concat(topPortion, bottomPortion);
+                this.grid.splice(0, ++row * this._gridSize.width, ...emptyRow.concat(topPortion));
                 this._lineCleared.next();
             }
         }
@@ -209,7 +208,7 @@ export class GameManagerService {
     private _clearPiece() {
         this._piece.positionsOnGrid
             .forEach((pos) => {
-                this.grid[pos].color = undefined;
+                this.__changeCell(pos, {color: undefined});
             });
     }
     
@@ -217,14 +216,18 @@ export class GameManagerService {
         this._piece.clearStore();
         this._piece.positionsOnGrid
             .forEach((pos) => {
-                this.grid[pos].color = this._piece.color;
+                this.__changeCell(pos, {color: this._piece.color});
             });
     }
 
     private _markSolid(){
         this._piece.positionsOnGrid.forEach((pos) => {
-            this.grid[pos].solid = true;
+            this.__changeCell(pos, {solid: true});
         })
+    }
+
+    private __changeCell(pos, data) {
+        this.grid[pos] = Object.assign({}, this.grid[pos], data);
     }
 
     private _collidesBottom() {
