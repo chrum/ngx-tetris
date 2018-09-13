@@ -41,10 +41,6 @@ export class TetrisCoreComponent implements OnInit {
         this._moveDownSpeed = this.initialSpeed * MOVE_DOWN_SPEED;
 
         this._manager.initialize(this.gridWidth, this.gridHeight, this.initialSpeed);
-        // this._manager.gridChanged$
-        //     .subscribe(((grid) => {
-        //         this.grid = grid;
-        //     }));
         this.grid = this._manager.grid;
 
         this._manager.lineCleared$.subscribe((data) => this._onLineCleared(data));
