@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {GameManagerService, Tile} from './services/game-manager.service';
 
 const GAME_SPEED = 500;
@@ -15,7 +15,7 @@ export enum GameState {
     templateUrl: './tetris-core.component.html',
     // styleUrls: ['./tetris-core.component.css']
 })
-export class TetrisCoreComponent implements OnInit {
+export class TetrisCoreComponent implements OnInit, OnChanges {
     @Input() initialSpeed: number;
     @Input() rotate = false;
     @Input() moveLeft = false;
@@ -31,30 +31,29 @@ export class TetrisCoreComponent implements OnInit {
     public grid: Array<Tile>;
     public state: GameState = GameState.Paused;
 
-    gridWidth: number = 10;
-    gridHeight: number = 20;
+    gridWidth = 10;
+    gridHeight = 20;
 
     private _moveDownSpeed;
 
     constructor(private _manager: GameManagerService) {
-        this.initialSpeed = this.initialSpeed | GAME_SPEED;
-        this._moveDownSpeed = this.initialSpeed * MOVE_DOWN_SPEED;
-
-        this._manager.initialize(this.gridWidth, this.gridHeight, this.initialSpeed);
-        this.grid = this._manager.grid;
-
         this._manager.lineCleared$.subscribe((data) => this._onLineCleared(data));
         this._manager.gameOver$.subscribe((data) => this._onGameOver(data));
-
-        setInterval(() => {
-            if (this.moveDown) {
-                this._manager.moveDown();
-            }
-
-        }, this._moveDownSpeed);
     }
 
     ngOnInit() {
+      this.initialSpeed = this.initialSpeed || GAME_SPEED;
+      this._moveDownSpeed = this.initialSpeed * MOVE_DOWN_SPEED;
+
+      this._manager.initialize(this.gridWidth, this.gridHeight, this.initialSpeed);
+      this.grid = this._manager.grid;
+
+      setInterval(() => {
+        if (this.moveDown) {
+          this._manager.moveDown();
+        }
+
+      }, this._moveDownSpeed);
     }
 
     ngOnChanges(changes) {

@@ -23,3 +23,4 @@ export class Z extends Piece {
         this.color = PieceColors['Z'];
     }
 }
+

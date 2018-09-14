@@ -25,7 +25,7 @@ export class PiecesFactory {
     }
 
     public getRandomPiecePiece(x, y) {
-        let idx = Math.floor(Math.random() * (this._available.length));
+        const idx = Math.floor(Math.random() * (this._available.length));
 
         return new this._available[idx](x, y, this._gridSize);
         // return new this._available[2](x, y, this._gridSize);

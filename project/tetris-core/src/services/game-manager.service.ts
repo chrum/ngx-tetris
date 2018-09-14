@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Piece} from '../classes/Piece';
 import {PiecesFactory} from '../classes/PiecesFactory';
-import {Observable} from "rxjs/internal/Observable";
-import {Subject} from "rxjs/internal/Subject";
+import {Observable} from 'rxjs/internal/Observable';
+import {Subject} from 'rxjs/internal/Subject';
 
 const SPAWN_POSITION_X = 4;
 const SPAWN_POSITION_Y = -4;
 
 export interface Tile {
-    solid: boolean,
-    color: string
+    solid: boolean;
+    color: string;
 }
 
 @Injectable()
@@ -28,7 +28,7 @@ export class GameManagerService {
     private _piece: Piece;
     private _piecesFactory: PiecesFactory;
 
-    private _locked: boolean = true;
+    private _locked = true;
     private _gameSpeed: number;
     private _gameInterval;
 
@@ -111,7 +111,7 @@ export class GameManagerService {
         this._piece.store();
 
         this._piece.rotate();
-        while(this._collidesRight()) {
+        while (this._collidesRight()) {
             this._piece.moveLeft();
 
             if (this._collidesLeft()) {
@@ -120,7 +120,7 @@ export class GameManagerService {
             }
         }
 
-        this._drawPiece()
+        this._drawPiece();
     }
 
     public moveDown() {
@@ -128,10 +128,10 @@ export class GameManagerService {
     }
 
     private _clearFullLines() {
-        for(let row = this._gridSize.height - 1; row >= 0; row--) {
+        for (let row = this._gridSize.height - 1; row >= 0; row--) {
             let isFull = true;
-            for(let col = 0; col < this._gridSize.width; col++) {
-                let pos = row * this._gridSize.width + col;
+            for (let col = 0; col < this._gridSize.width; col++) {
+                const pos = row * this._gridSize.width + col;
                 if (this.grid[pos].solid === false) {
                     isFull = false;
                     break;
@@ -139,10 +139,10 @@ export class GameManagerService {
             }
 
             if (isFull) {
-                let emptyRow = Array.apply(null, Array(this._gridSize.width))
-                    .map((idx) => { return { color: null, solid: false } });
+                const emptyRow = Array.apply(null, Array(this._gridSize.width))
+                    .map((idx) => ({ color: null, solid: false }));
 
-                let topPortion = this.grid.slice(0, row * this._gridSize.width);
+                const topPortion = this.grid.slice(0, row * this._gridSize.width);
 
                 this.grid.splice(0, ++row * this._gridSize.width, ...emptyRow.concat(topPortion));
                 this._lineCleared.next();
@@ -200,9 +200,9 @@ export class GameManagerService {
     }
 
     private _initializeEmptyBoard() {
-        let cellsCount = this._gridSize.width * this._gridSize.height;
+        const cellsCount = this._gridSize.width * this._gridSize.height;
         this.grid = Array.apply(null, Array(cellsCount))
-            .map((idx) => { return { color: null, solid: false } });
+            .map((idx) => ({ color: null, solid: false }));
     }
 
     private _clearPiece() {
@@ -211,7 +211,7 @@ export class GameManagerService {
                 this.__changeCell(pos, {color: undefined});
             });
     }
-    
+
     private _drawPiece() {
         this._piece.clearStore();
         this._piece.positionsOnGrid
@@ -220,10 +220,10 @@ export class GameManagerService {
             });
     }
 
-    private _markSolid(){
+    private _markSolid() {
         this._piece.positionsOnGrid.forEach((pos) => {
             this.__changeCell(pos, {solid: true});
-        })
+        });
     }
 
     private __changeCell(pos, data) {

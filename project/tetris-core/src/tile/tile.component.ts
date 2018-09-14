@@ -6,6 +6,7 @@ import {Tile} from '../services/game-manager.service';
     templateUrl: './tile.component.html',
     styleUrls: ['./tile.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    // tslint:disable-next-line
     host: {
         '[style.background]': 'data.color'
     }

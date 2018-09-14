@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {Tile} from "../services/game-manager.service";
+import {Tile} from '../services/game-manager.service';
 
 @Component({
     selector: 'board',

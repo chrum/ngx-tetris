@@ -30,7 +30,7 @@ export enum PieceColors {
 }
 
 export class Piece {
-    color: string = 'red';
+    color = 'red';
     x: number;
     y: number;
     rotation: PieceRotation = PieceRotation.DEG_0;
@@ -53,11 +53,11 @@ export class Piece {
     }
 
     get positionsOnGrid() {
-        let acc = [];
-        for(let row = 0; row < 4; row++) {
-            for(let col = 0; col < 4; col++) {
+        const acc = [];
+        for (let row = 0; row < 4; row++) {
+            for (let col = 0; col < 4; col++) {
                 if (this.map[row][col]) {
-                    let pos = (this.y + row) * this._gridSize.width + this.x + col;
+                    const pos = (this.y + row) * this._gridSize.width + this.x + col;
                     if (pos > 0) {
                         acc.push(pos);
                     }
@@ -74,7 +74,7 @@ export class Piece {
             y: this.y,
             rotation: this.rotation,
             map: this.map
-        }
+        };
     }
 
     public clearStore() {
@@ -83,7 +83,7 @@ export class Piece {
 
     public revert() {
         if (this._lastConfig) {
-            for(let x in this._lastConfig) {
+            for (const x in this._lastConfig) {
                 if (this._lastConfig.hasOwnProperty(x)) {
                     this[x] = this._lastConfig[x];
                 }
@@ -94,7 +94,7 @@ export class Piece {
     }
 
     public rotate() {
-        let keys = Object.keys(this._maps);
+        const keys = Object.keys(this._maps);
         let idx = keys.indexOf(this.rotation.toString());
         if (idx >= keys.length - 1) {
             this.rotation = keys[0] as any;
@@ -105,15 +105,15 @@ export class Piece {
         this.map = this._maps[this.rotation];
     }
 
-    public moveDown(){
+    public moveDown() {
         this.y++;
     }
 
-    public moveRight(){
+    public moveRight() {
         this.x++;
     }
 
-    public moveLeft(){
+    public moveLeft() {
         this.x--;
     }
 
@@ -123,8 +123,8 @@ export class Piece {
 
     get rightCol() {
         let col = 3;
-        while(col >= 0) {
-            for(let row = 0; row <= 3; row++) {
+        while (col >= 0) {
+            for (let row = 0; row <= 3; row++) {
                 if (this.map[row][col]) {
                     return this.x + col;
                 }

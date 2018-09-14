@@ -1,8 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
 import {Hotkey, HotkeysService} from 'angular2-hotkeys';
-// import {TetrisCoreComponent} from '../../project/tetris-core/src/tetris-core.component';
+import {TetrisCoreComponent} from '../../project/tetris-core/src/tetris-core.component';
 // import {TetrisCoreComponent} from '../../project/tetris-core/dist';
-import {TetrisCoreComponent} from 'ngx-tetris';
+// import {TetrisCoreComponent} from 'ngx-tetris';
 
 @Component({
     selector: 'app-root',
@@ -14,13 +14,13 @@ export class AppComponent {
     @ViewChild(TetrisCoreComponent)
     private _tetris: TetrisCoreComponent;
 
-    public moveLeft: boolean = false;
-    public moveDown: boolean = false;
-    public moveRight: boolean = false;
-    public rotate: boolean = false;
-    public start: boolean = false;
-    public stop: boolean = false;
-    public reset: boolean = false;
+    public moveLeft = false;
+    public moveDown = false;
+    public moveRight = false;
+    public rotate = false;
+    public start = false;
+    public stop = false;
+    public reset = false;
 
     constructor(private _hotkeysService: HotkeysService) {
         this._addHotkeys();
@@ -55,6 +55,4 @@ export class AppComponent {
             return false; // Prevent bubbling
         }));
     }
-
-    
 }
