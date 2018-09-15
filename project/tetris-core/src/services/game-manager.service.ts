@@ -7,9 +7,9 @@ import {Subject} from 'rxjs/internal/Subject';
 const SPAWN_POSITION_X = 4;
 const SPAWN_POSITION_Y = -4;
 
-export interface Tile {
-    solid: boolean;
-    color: string;
+export class Tile {
+    solid = false;
+    color = null;
 }
 
 @Injectable()
@@ -66,7 +66,12 @@ export class GameManagerService {
     }
 
     public reset() {
-        this._initializeEmptyBoard();
+        const emptyTile = new Tile();
+        for (let pos = 0; pos < this.grid.length; pos++) {
+            if (this.grid[pos].color || this.grid[pos].solid) {
+                this.__changeCell(pos, emptyTile);
+            }
+        }
 
         this._spawnNewPiece();
         this._drawPiece();
@@ -140,7 +145,7 @@ export class GameManagerService {
 
             if (isFull) {
                 const emptyRow = Array.apply(null, Array(this._gridSize.width))
-                    .map((idx) => ({ color: null, solid: false }));
+                    .map((idx) => new Tile());
 
                 const topPortion = this.grid.slice(0, row * this._gridSize.width);
 
@@ -202,7 +207,7 @@ export class GameManagerService {
     private _initializeEmptyBoard() {
         const cellsCount = this._gridSize.width * this._gridSize.height;
         this.grid = Array.apply(null, Array(cellsCount))
-            .map((idx) => ({ color: null, solid: false }));
+            .map((idx) => new Tile());
     }
 
     private _clearPiece() {
@@ -226,7 +231,7 @@ export class GameManagerService {
         });
     }
 
-    private __changeCell(pos, data) {
+    private __changeCell(pos, data = {}) {
         this.grid[pos] = Object.assign({}, this.grid[pos], data);
     }
 
