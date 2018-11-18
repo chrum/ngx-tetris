@@ -1,20 +1,13 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<tetris-core
-    [moveLeft]="moveLeft"
-    [moveRight]="moveRight"
-    [moveDown]="moveDown"
-    [rotate]="rotate"
-    [start]="start"
-    [stop]="stop"
-    [reset]="reset"
+<tetris-core #game
     (lineCleared)="onLineCleared()"
     (gameOver)="onGameOver()"></tetris-core>
 
 <table class="controls">
     <tr>
-        <td><button (mousedown)="start = true" (mouseup)="start = false">Start</button></td>
-        <td><button (mousedown)="stop = true" (mouseup)="stop = false">Stop</button></td>
-        <td><button (mousedown)="reset = true" (mouseup)="reset = false">Reset</button></td>
+        <td><button (click)="game.actionStart()">Start</button></td>
+        <td><button (click)="game.actionStop()">Stop</button></td>
+        <td><button (click)="game.actionReset()">Reset</button></td>
         <td></td>
     </tr>
     <tr><td></td></tr>
@@ -22,17 +15,17 @@
     <tr><td></td></tr>
     <tr>
         <td></td>
-        <td><button (mousedown)="rotate = true" (mouseup)="rotate = false">Rotate</button></td>
+        <td><button (click)="game.actionRotate()">Rotate</button></td>
     </tr>
     <tr>
-        <td><button (mousedown)="moveLeft = true" (mouseup)="moveLeft = false">Left</button></td>
+        <td><button (click)="game.actionLeft()">Left</button></td>
         <td></td>
-        <td><button (mousedown)="moveRight = true" (mouseup)="moveRight = false">Right</button></td>
+        <td><button (click)="game.actionRight()">Right</button></td>
 
     </tr>
     <tr>
         <td></td>
-        <td><button (mousedown)="moveDown = true" (mouseup)="moveDown = false">Down</button></td>
+        <td><button (click)="game.actionDown()">Down</button></td>
     </tr>
 </table>
 

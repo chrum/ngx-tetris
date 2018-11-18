@@ -39,17 +39,16 @@ export class AppModule {
 
 #### Add/Connect to your fancy control interface
 ```html
-    <tetris-core
-        [start]="start"
-        [stop]="stop"
-        [moveLeft]="moveLeft"
-        [moveRight]="moveRight"
+    <tetris-core #game
         (lineCleared)="onLineCleared()"></tetris-core>
 
-    <button (mousedown)="start = true" (mouseup)="start = false">Start</button>
-    <button (mousedown)="stop = true" (mouseup)="stop = false">Stop</button>
-    <button (mousedown)="moveLeft = true" (mouseup)="moveLeft = false">Left</button>
-    <button (mousedown)="moveRight = true" (mouseup)="moveRight = false">Right</button>
+        <button (click)="game.actionStart()">Start</button>
+        <button (click)="game.actionStop()">Stop</button>
+        <button (click)="game.actionReset()">Reset</button>
+        <button (click)="game.actionRotate()">Rotate</button>
+        <button (click)="game.actionLeft()">Left</button>
+        <button (click)="game.actionRight()">Right</button>
+        <button (click)="game.actionDown()">Down</button>
 ```
 
 #### Inputs
