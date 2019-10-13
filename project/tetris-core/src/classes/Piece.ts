@@ -19,14 +19,14 @@ export enum PieceTypes {
 
 // picked from https://www.romanzolotarev.com/pico-8-color-palette/
 export enum PieceColors {
-    Box = '#FFCCAA',
-    Dot = '#FF77A8',
-    Line = '#83769C',
-    T = '#29ADFF',
-    L = '#00E436',
-    Lr = '#FFEC27',
-    Z = '#FFA300',
-    S = '#C2C3C7'
+    Box = 'color-box',
+    Dot = 'color-dot',
+    Line = 'color-line',
+    T = 'color-t',
+    L = 'color-l',
+    Lr = 'color-lr',
+    Z = 'color-z',
+    S = 'color-s'
 }
 
 export class Piece {

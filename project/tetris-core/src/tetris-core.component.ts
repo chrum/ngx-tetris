@@ -16,6 +16,8 @@ export enum GameState {
     // styleUrls: ['./tetris-core.component.css']
 })
 export class TetrisCoreComponent implements OnInit, OnChanges {
+    @Input() tileSize: any;
+
     @Input() initialSpeed: number;
     @Input() rotate = false;
     @Input() moveLeft = false;
@@ -45,7 +47,7 @@ export class TetrisCoreComponent implements OnInit, OnChanges {
       this.initialSpeed = this.initialSpeed || GAME_SPEED;
       this._moveDownSpeed = this.initialSpeed * MOVE_DOWN_SPEED;
 
-      this._manager.initialize(this.gridWidth, this.gridHeight, this.initialSpeed);
+      this._manager.initialize(this.gridWidth, this.gridHeight, this.initialSpeed, this.tileSize);
       this.grid = this._manager.grid;
 
       setInterval(() => {

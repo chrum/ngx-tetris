@@ -1,0 +1,40 @@
+:host {
+    display: inline-block;
+    width: auto;
+    text-align: center;
+
+    button {
+        &.bw {
+            color: black;
+            background: white;
+            border: 2px solid black;
+        }
+        &.colors {
+            color: black;
+            background: yellow;
+            border: 2px solid red;
+            span {
+                font-weight: bold;
+                background: white;
+                color: black;
+                padding: 0 2px;
+                &.green {
+                    background: green;
+                    color: white;
+                }
+                &.red {
+                    background: red;
+
+                }
+            }
+        }
+    }
+}
+
+.controls {
+    float: right;
+}
+
+tetris-core {
+    display: inline-block;
+}

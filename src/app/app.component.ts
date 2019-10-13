@@ -7,7 +7,7 @@ import {TetrisCoreComponent} from '../../project/tetris-core/src/tetris-core.com
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 
@@ -32,6 +32,10 @@ export class AppComponent {
 
     public onGameOver() {
         alert('game over');
+    }
+
+    public onRotateButtonPressed() {
+        this._tetris.actionRotate();
     }
 
     private _addHotkeys() {

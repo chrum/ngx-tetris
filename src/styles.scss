@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+tetris-core {
+  &.black-and-white {
+    tile {
+      background: white;
+      &.color-box {
+        background: #000000;
+      }
+      &.color-dot {
+        background: #000000;
+      }
+      &.color-line {
+        background: #000000;
+      }
+      &.color-t {
+        background: #000000;
+      }
+      &.color-l {
+        background: #000000;
+      }
+      &.color-lr {
+        background: #000000;
+      }
+      &.color-z {
+        background: #000000;
+      }
+      &.color-s {
+        background: #000000;
+      }
+    }
+  }
+}

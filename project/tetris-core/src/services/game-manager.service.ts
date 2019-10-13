@@ -14,6 +14,14 @@ export class Tile {
 
 @Injectable()
 export class GameManagerService {
+    public settings = {
+        tileSize: null
+    };
+
+    public get elementsInRow() {
+        return this._gridSize.width;
+    }
+
     // serialized grid :)
     public grid: Array<Tile>;
 
@@ -40,11 +48,15 @@ export class GameManagerService {
         this.gameOver$ = this._gameOver.asObservable();
     }
 
-    public initialize(width: number, height: number, gameSpeed) {
+    public initialize(width: number, height: number, gameSpeed, tileSize?: any) {
         this._gridSize.width = width;
         this._gridSize.height = height;
         this._gameSpeed = gameSpeed;
         this._piecesFactory = new PiecesFactory(this._gridSize);
+
+        if (tileSize) {
+            this.settings.tileSize = tileSize;
+        }
 
         this._initializeEmptyBoard();
 

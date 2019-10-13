@@ -1,10 +1,9 @@
-# ngx-tetris 
-***[work-in-progress]***
+# ngx-tetris
 
-
-Tetris game as an angular component 
+Tetris game as an angular component
 
 ***ngx-tetris*** is actually only the ***core of the game***... YOU need to add everything around it (controls, score...)  yourself :) 
+
 
 Check the demo [here](http://chrum.it/pages/ngx-tetris)
 
@@ -55,6 +54,7 @@ export class AppModule {
 
 Name  | Default | Type | Description
 --- | --- | --- | ---
+tileSize | 25px | css unit | Size to use when rendering single tile. Can be in 'px' or in 'em' or any(probably) other css unit
 initialSpeed | 500 | integer | Miliseconds (ms) time between falling cycles (lower number -> faster game)
 start | | boolean | Flag that toggled from false to true starts the game
 stop | | boolean | Flag that toggled from false to true stops the game
@@ -101,6 +101,26 @@ OR
     </tetris-core>
 <button (click)="game.actionRotate()">Rotate</button>
 ```
+
+### Styling
+
+To change colors and tiles (to **black and white** for example) define styles with colors like
+```scss
+tetris-core {
+    tile {
+        background: white;
+        &.color-box {
+          background: #000000;
+        }
+    }
+}
+```
+for full example (and all class names) [go here](https://github.com/chrum/ngx-tetris/blob/master/src/app/app.component.scss)
+
+## Development
+
+ 
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Authors
 

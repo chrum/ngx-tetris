@@ -1,5 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <tetris-core #game
+    [class.black-and-white]="bw"
+    tileSize="30px"
     (lineCleared)="onLineCleared()"
     (gameOver)="onGameOver()"></tetris-core>
 
@@ -26,6 +28,19 @@
     <tr>
         <td></td>
         <td><button (click)="game.actionDown()">Down</button></td>
+    </tr>
+    <tr style="height: 20px">
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <button *ngIf="!bw" class="bw" (click)="bw = true">Go B/W !</button>
+            <button *ngIf="bw" class="colors" (click)="bw = false">
+                <span class="green">no, </span>
+                <span>back to</span>
+                <span class="red">colors</span>
+            </button>
+        </td>
     </tr>
 </table>
 
