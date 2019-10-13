@@ -11,9 +11,10 @@ import {TetrisCoreComponent} from '../../project/tetris-core/src/tetris-core.com
 })
 export class AppComponent {
 
-    @ViewChild(TetrisCoreComponent)
+    @ViewChild('game')
     private _tetris: TetrisCoreComponent;
 
+    public bw = false;
     public moveLeft = false;
     public moveDown = false;
     public moveRight = false;

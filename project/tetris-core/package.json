@@ -1,7 +1,7 @@
 {
   "name": "ngx-tetris",
   "description": "Tetris game as an angular component, its only the core of the game... you need to add everything around it (controls, score...)  yourself :) ",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": {
     "name": "Chrystian Ruminowicz",
     "email": "chrystianr@gmail.com"

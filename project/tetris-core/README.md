@@ -115,7 +115,7 @@ tetris-core {
     }
 }
 ```
-for full example (and all class names) [go here](https://github.com/chrum/ngx-tetris/blob/master/src/app/app.component.scss)
+for full example (and all class names) [go here](https://github.com/chrum/ngx-tetris/blob/master/src/styles.scss)
 
 ## Development
 
