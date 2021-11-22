@@ -1,0 +1,28 @@
+{
+  "name": "ngx-tetris",
+  "description": "Tetris game as an angular component, its only the core of the game... you need to add everything around it (controls, score...)  yourself :) ",
+  "version": "1.0.0",
+  "author": {
+    "name": "Chrystian Ruminowicz",
+    "email": "chrystianr@gmail.com"
+  },
+  "homepage": "http://chrum.it/pages/ngx-tetris",
+  "keywords": [
+    "angular",
+    "ngx",
+    "ng",
+    "typescript",
+    "tetris",
+    "game",
+    "core"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrum/ngx-tetris"
+  },
+  "peerDependencies": {
+    "@angular/common": ">6.1.0",
+    "@angular/core": ">6.1.0"
+  }
+}
