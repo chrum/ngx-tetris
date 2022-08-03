@@ -32,6 +32,7 @@ export class TetrisCoreComponent implements OnInit, OnChanges {
     @Input() moveLeft = false;
     @Input() moveRight = false;
     @Input() moveDown = false;
+    @Input() drop = false;
     @Input() start = false;
     @Input() stop = false;
     @Input() reset = false;
@@ -69,9 +70,10 @@ export class TetrisCoreComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (this._keyPressed(changes['moveLeft'])) {
             this._manager.moveLeft();
-
         } else if (this._keyPressed(changes['moveRight'])) {
             this._manager.moveRight();
+        } else if (this._keyPressed(changes['drop'])) {
+            this._manager.drop();
         }
 
         if (this._keyPressed(changes['rotate'])) { this._manager.rotate(); }
@@ -84,6 +86,7 @@ export class TetrisCoreComponent implements OnInit, OnChanges {
     public actionRight() { this._manager.moveRight(); }
     public actionRotate() { this._manager.rotate(); }
     public actionDown() { this._manager.moveDown(); }
+    public actionDrop() { this._manager.drop(); }
     public actionReset() { this._manager.reset(); }
 
     public actionStart() {
