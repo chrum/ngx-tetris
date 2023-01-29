@@ -48,6 +48,7 @@ export class AppModule {
         <button (click)="game.actionLeft()">Left</button>
         <button (click)="game.actionRight()">Right</button>
         <button (click)="game.actionDown()">Down</button>
+        <button (click)="game.actionDrop()">Drop</button>
 ```
 
 #### Inputs
@@ -62,6 +63,7 @@ reset | | boolean | Flag that toggled from false to true resets the game
 moveLeft | | boolean | Flag that toggled from false to true moves current piece to the left
 moveRight | | boolean | Flag that toggled from false to true moves current piece to the right
 moveDown | | boolean | Flag that toggled from false to true moves piece down (falls faster)
+drop | | boolean | Flag that toggled from false to true moves piece down (instantly drops)
 rotate | | boolean | Flag that toggled from false to true rotates current piece
 
 #### Outputs
@@ -79,6 +81,7 @@ gameOver | :( player was flooded with pieces and didn't make it (remember about 
 - `actionDown`
 - `actionRight`
 - `actionRotate`
+- `actionDrop`
 
 which can be used like:
 ```html

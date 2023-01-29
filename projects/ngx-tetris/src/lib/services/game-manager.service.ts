@@ -43,6 +43,8 @@ export class GameManagerService {
     private _lineCleared = new Subject<void>();
     private _gameOver = new Subject<void>();
 
+    private _keepMovingDown = false;
+
     constructor() {
         this.lineCleared$ = this._lineCleared.asObservable();
         this.gameOver$ = this._gameOver.asObservable();
@@ -119,6 +121,13 @@ export class GameManagerService {
         this._drawPiece();
     }
 
+    public drop() {
+        this._keepMovingDown = true;
+        while(!this._collidesBottom() && this._keepMovingDown) {
+            this._update();
+        }
+    }
+
     public rotate() {
         if (this._locked) {
             return;
@@ -179,6 +188,7 @@ export class GameManagerService {
 
         this._piece.moveDown();
         if (this._collidesBottom()) {
+            this._keepMovingDown = false;
             this._piece.revert();
             this._markSolid();
             this._drawPiece();
