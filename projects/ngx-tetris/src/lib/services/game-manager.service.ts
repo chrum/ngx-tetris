@@ -122,8 +122,11 @@ export class GameManagerService {
     }
 
     public drop() {
+        if (this._locked) {
+            return;
+        }
         this._keepMovingDown = true;
-        while(!this._collidesBottom() && this._keepMovingDown) {
+        while (!this._collidesBottom() && this._keepMovingDown) {
             this._update();
         }
     }
